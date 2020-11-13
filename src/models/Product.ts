@@ -7,16 +7,19 @@ import Model from "./Model";
 export default class Product extends Model {
 
     @Column()
-    name: String;
+    brand: string;
 
     @Column()
-    originalPrice: Number;
+    name: string;
 
     @Column()
-    salePrice: Number;
+    originalPrice: number;
 
     @Column()
-    foreignId: Number;
+    salePrice: number;
+
+    @Column()
+    foreignId: number;
 
     @OneToOne(() => Market)
     market: Market;

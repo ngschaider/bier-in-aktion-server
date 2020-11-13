@@ -3,6 +3,7 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
+      "@types/request-promise": "^4.1.46",
       "@types/uuid": "^8.3.0",
       "nodemon": "^2.0.6",
       "ts-node": "^9.0.0",
@@ -13,9 +14,13 @@
       "graphql": "^15.4.0",
       "mysql": "^2.18.1",
       "reflect-metadata": "^0.1.13",
+      "request": "^2.88.2",
+      "request-promise": "^4.2.6",
       "typeorm": "^0.2.29"
    },
    "scripts": {
-      "start": "nodemon src/index.ts"
+      "start": "ts-node src/index.ts",
+      "dev": "nodemon src/index.ts",
+      "build": "tsc"
    }
 }

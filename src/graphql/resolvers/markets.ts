@@ -7,9 +7,5 @@ export default {
     },
 
     Mutation: {
-        createMarket: async (parent, args, context, info) => {
-        },
-        deleteMarket: async(parent, args, context, info) => {
-        },
     },
 };
