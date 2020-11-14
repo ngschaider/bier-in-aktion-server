@@ -24,4 +24,7 @@ export default class Product extends Model {
     @ManyToOne(() => Market)
     market: Market;
 
+    @Column()
+    imageUrl: string;
+
 }

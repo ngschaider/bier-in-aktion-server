@@ -31,6 +31,7 @@ export default class BillaSpider extends Spider {
             product.salePrice = data.price.sale;
             product.foreignId = data.articleId;
             product.market = market;
+            product.imageUrl = "https://files.billa.at/files/artikel/" + product.foreignId + "_01__150x150.jpg";
 
             products.push(product);
         });

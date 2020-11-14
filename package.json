@@ -16,7 +16,8 @@
       "reflect-metadata": "^0.1.13",
       "request": "^2.88.2",
       "request-promise": "^4.2.6",
-      "typeorm": "^0.2.29"
+      "typeorm": "^0.2.29",
+      "uuid": "^8.3.1"
    },
    "scripts": {
       "start": "ts-node src/index.ts",

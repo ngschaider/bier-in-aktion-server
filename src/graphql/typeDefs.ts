@@ -15,6 +15,7 @@ export default gql`
         salePrice: Float!
         market: Market!
         uuid: String!
+        imageUrl: String!
     }
 
     type Query {
