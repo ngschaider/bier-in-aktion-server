@@ -1,4 +1,4 @@
-import {Entity, Column, OneToOne} from "typeorm";
+import {Entity, Column, OneToOne, ManyToOne} from "typeorm";
 
 import Market from "./Market";
 import Model from "./Model";
@@ -19,9 +19,9 @@ export default class Product extends Model {
     salePrice: number;
 
     @Column()
-    foreignId: number;
+    foreignId: string;
 
-    @OneToOne(() => Market)
+    @ManyToOne(() => Market)
     market: Market;
 
 }

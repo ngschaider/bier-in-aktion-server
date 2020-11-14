@@ -5,6 +5,7 @@ import { ApolloServer } from "apollo-server";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
 import scheduler from "./util/scheduler";
+import spiders from "./spiders";
 
 const server = new ApolloServer({
     typeDefs,
@@ -19,7 +20,9 @@ createConnection().then(async connection => {
     });
 }).then(res => {
     console.log("Server running at " + res.url);
-    scheduler();
+    //scheduler();
+
+    //spiders.getProducts().then(console.log);
 }).catch(error => {
     console.log(error);
 });

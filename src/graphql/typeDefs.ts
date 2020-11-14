@@ -10,6 +10,7 @@ export default gql`
 
     type Product {
         name: String!
+        brand: String!
         originalPrice: Float!
         salePrice: Float!
         market: Market!

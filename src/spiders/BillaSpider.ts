@@ -9,7 +9,6 @@ export default class BillaSpider extends Spider {
     marketType = "billa";
 
     url: string;
-    market: Market;
 
     constructor(url: string) {
         super();
@@ -17,7 +16,7 @@ export default class BillaSpider extends Spider {
     }
 
     async getProducts(): Promise<Product[]> {
-        const market = this.getAssociatedMarket();
+        const market = await this.getAssociatedMarket();
 
         const products = [];
         const body = await request(this.url, {json: true});
@@ -31,7 +30,7 @@ export default class BillaSpider extends Spider {
             product.originalPrice = data.price.normal;
             product.salePrice = data.price.sale;
             product.foreignId = data.articleId;
-            product.market = this.market;
+            product.market = market;
 
             products.push(product);
         });
