@@ -19,7 +19,7 @@ createConnection().then(async connection => {
     });
 }).then(res => {
     console.log("Server running at " + res.url);
-    //scheduler();
+    scheduler();
 }).catch(error => {
     console.log(error);
 });

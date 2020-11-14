@@ -5,6 +5,7 @@ export default gql`
     type Market {
         name: String!
         type: String!
+        uuid: String!
     }
 
     type Product {
@@ -12,6 +13,7 @@ export default gql`
         originalPrice: Float!
         salePrice: Float!
         market: Market!
+        uuid: String!
     }
 
     type Query {

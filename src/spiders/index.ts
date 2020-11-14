@@ -10,8 +10,8 @@ const scrapers: Spider[] = [
 const getProducts = async () => {
     const products = [];
 
-    scrapers.forEach(scraper => {
-        products.concat(scraper.getProducts());
+    scrapers.forEach(async scraper => {
+        products.concat(await scraper.getProducts());
     });
 
     return products;

@@ -10,18 +10,16 @@ export default abstract class Spider {
             throw "Market Type for Spider not set!";
         }
 
-        const market = await Market.findOne({
+        let market = await Market.findOne({
             where: {type: this.marketType}
         });
 
-        if(market) {
-            return market;
+        if(!market) {
+            market = new Market();
+            market.name = this.marketType.substr(0, 1).toUpperCase() + this.marketType.substr(1, this.marketType.length - 1);
+            market.type = this.marketType;
+            await market.save();
         }
-
-        new Market();
-        market.name = this.marketType.substr(0, 1).toUpperCase() + this.marketType.substr(1, this.marketType.length - 1);
-        market.type = this.marketType;
-        await market.save();
 
         return market;
     }
