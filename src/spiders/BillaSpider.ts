@@ -25,8 +25,14 @@ export default class BillaSpider extends Spider {
             const data = rawProduct.data;
 
             const product = new Product();
-            product.name = data.name;
             product.brand = data.brand;
+            product.name = data.name;
+
+            const replace = product.brand + " ";
+            if(product.name.startsWith(replace)) {
+                product.name = product.name.substring(replace.length, product.name.length);
+            }
+
             product.originalPrice = data.price.normal;
             product.salePrice = data.price.sale;
             product.foreignId = data.articleId;

@@ -20,9 +20,7 @@ createConnection().then(async connection => {
     });
 }).then(res => {
     console.log("Server running at " + res.url);
-    //scheduler();
-
-    //spiders.getProducts().then(console.log);
+    scheduler();
 }).catch(error => {
     console.log(error);
 });
