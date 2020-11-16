@@ -16,6 +16,9 @@ export default gql`
         market: Market!
         uuid: String!
         imageUrl: String!
+        start: String
+        end: String
+        additionalInfo: String
     }
 
     type Query {

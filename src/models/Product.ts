@@ -12,13 +12,13 @@ export default class Product extends Model {
     @Column()
     name: string;
 
-    @Column()
+    @Column({type: "float"})
     originalPrice: number;
 
-    @Column()
+    @Column({type: "float"})
     salePrice: number;
 
-    @Column()
+    @Column()    
     foreignId: string;
 
     @ManyToOne(() => Market)
@@ -26,5 +26,14 @@ export default class Product extends Model {
 
     @Column()
     imageUrl: string;
+
+    @Column({nullable: true})
+    start: Date;
+
+    @Column({nullable: true})
+    end: Date;
+
+    @Column({nullable: true})
+    additionalInfo: string;
 
 }

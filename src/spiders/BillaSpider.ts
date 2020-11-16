@@ -10,6 +10,13 @@ export default class BillaSpider extends Spider {
 
     url: string;
 
+    blacklistedIds = [ 
+        "00-414102", // "Da komm ich her! Bierrettich aus Österreich" Nr. 143
+        "00-491896", // "Haas Stiegl Biersenf" Nr. 144
+        "00-911108", // "Almsenner Pinzgauer Bierkäse" Nr. 145
+        "00-590286", // "Oswald Steinpilze halbiert" Nr. 146
+    ]
+
     constructor(url: string) {
         super();
         this.url = url;
@@ -39,7 +46,13 @@ export default class BillaSpider extends Spider {
             product.market = market;
             product.imageUrl = "https://files.billa.at/files/artikel/" + product.foreignId + "_01__150x150.jpg";
 
-            products.push(product);
+            if(data.price.priceAdditionalInfo) {
+                product.additionalInfo = data.price.priceAdditionalInfo.vptxt;
+            }
+
+            if(product.salePrice !== product.originalPrice && !this.blacklistedIds.includes(product.foreignId) ) {
+                products.push(product);
+            }
         });
         return products;
     }
