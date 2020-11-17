@@ -8,7 +8,7 @@ const scrapers: Spider[] = [
     new BillaSpider(),
     new SparSpider(),
     new UnimarktSpider(),
-    new MPreisSpider(),
+    //new MPreisSpider(),
 ];
 
 const getProducts = async () => {
