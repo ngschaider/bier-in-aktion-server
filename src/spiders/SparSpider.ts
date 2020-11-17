@@ -32,15 +32,15 @@ export default class SparSpider extends Spider {
                 product.name = product.name.substring(replace.length, product.name.length);
             }
 
-            product.originalPrice = parseFloat(data["product-price"]);
+            product.salePrice = parseFloat(data["product-price"]);
 
             if(data.isOnPromotion === "true") {
                 const insteadOf = data["product-insteadofprice"];
-                product.salePrice = parseFloat(insteadOf.substring("statt ".length, insteadOf.length));
+                product.originalPrice = parseFloat(insteadOf.substring("statt ".length, insteadOf.length));
             } else {
-                product.salePrice = product.originalPrice;
+                product.originalPrice = product.salePrice;
             }
-            
+
             product.description = data.description;
             product.market = market;
             product.imageUrl = data["teaser-image"];
