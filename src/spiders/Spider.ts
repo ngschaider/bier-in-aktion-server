@@ -5,6 +5,8 @@ export default abstract class Spider {
 
     abstract marketType: string = null;
 
+    
+
     async getAssociatedMarket(): Promise<Market> {
         if(this.marketType === null) {
             throw "Market Type for Spider not set!";

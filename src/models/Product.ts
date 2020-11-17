@@ -18,8 +18,11 @@ export default class Product extends Model {
     @Column({type: "float"})
     salePrice: number;
 
-    @Column()    
+    @Column({nullable: true})
     foreignId: string;
+
+    @Column({type: "text"})    
+    description: string;
 
     @ManyToOne(() => Market)
     market: Market;

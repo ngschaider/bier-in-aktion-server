@@ -2,7 +2,6 @@ import request from "request-promise";
 
 import Spider from "./Spider";
 import Product from "../models/Product";
-import Market from "../models/Market";
 
 export default class BillaSpider extends Spider {
 
@@ -23,6 +22,8 @@ export default class BillaSpider extends Spider {
     }
 
     async getProducts(): Promise<Product[]> {
+        console.log("Running BillaSpider");
+
         const market = await this.getAssociatedMarket();
 
         const products = [];
@@ -40,10 +41,11 @@ export default class BillaSpider extends Spider {
                 product.name = product.name.substring(replace.length, product.name.length);
             }
 
-            product.originalPrice = data.price.normal;
-            product.salePrice = data.price.sale;
+            product.originalPrice = parseFloat(data.price.normal);
+            product.salePrice = parseFloat(data.price.sale);
             product.foreignId = data.articleId;
             product.market = market;
+            product.description = data.description;
             product.imageUrl = "https://files.billa.at/files/artikel/" + product.foreignId + "_01__150x150.jpg";
 
             if(data.price.priceAdditionalInfo) {
