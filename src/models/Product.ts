@@ -21,7 +21,7 @@ export default class Product extends Model {
     @Column({nullable: true})
     foreignId: string;
 
-    @Column({type: "text"})    
+    @Column({type: "text", nullable: true})    
     description: string;
 
     @ManyToOne(() => Market)

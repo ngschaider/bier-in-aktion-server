@@ -5,7 +5,7 @@ import Spider from "./Spider";
 
 export default class SparSpider extends Spider {
 
-    marketType = "spar";
+    marketType = "unimarkt";
 
     url: string;
 
@@ -15,35 +15,28 @@ export default class SparSpider extends Spider {
     }
 
     async getProducts(): Promise<Product[]> {
-        console.log("Running SparSpider");
+        console.log("Running UnimarktSpider");
 
         const market = await this.getAssociatedMarket();
 
         const products = [];
         const body = await request(this.url, {json: true});
 
-        body.products.results.forEach(data => {
+        body.RESULT.ITEMS.forEach(data => {
             const product = new Product();
-            product.brand = data.title;
-            product.name = data["product-name"];
+
+            product.imageUrl = "https://shop.unimarkt.at" + data.IMAGE;
+            product.brand = data.MARKE;
+            product.name = data.NAME;
+            product.originalPrice = data.NORMALPREIS;
+            product.salePrice = data.PREIS;
+            product.foreignId = data.ARTIKELID;
+            product.market = market;
 
             const replace = product.brand + " ";
             if(product.name.startsWith(replace)) {
                 product.name = product.name.substring(replace.length, product.name.length);
             }
-
-            product.originalPrice = parseFloat(data["product-price"]);
-
-            if(data.isOnPromotion === "true") {
-                const insteadOf = data["product-insteadofprice"];
-                product.salePrice = parseFloat(insteadOf.substring("statt ".length, insteadOf.length));
-            } else {
-                product.salePrice = product.originalPrice;
-            }
-            
-            product.description = data.description;
-            product.market = market;
-            product.imageUrl = data["teaser-image"];
 
             if(product.salePrice !== product.originalPrice) {
                 products.push(product);
