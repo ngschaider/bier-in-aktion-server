@@ -7,12 +7,7 @@ export default class SparSpider extends Spider {
 
     marketType = "spar";
 
-    url: string;
-
-    constructor(url: string) {
-        super();
-        this.url = url;
-    }
+    url = "https://sp1004e4e6.guided.lon5.atomz.com/?q=bier&category=products&count=1000";
 
     async getProducts(): Promise<Product[]> {
         console.log("Running SparSpider");

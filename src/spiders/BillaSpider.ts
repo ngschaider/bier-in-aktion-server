@@ -7,7 +7,7 @@ export default class BillaSpider extends Spider {
 
     marketType = "billa";
 
-    url: string;
+    url = "https://www.billa.at/api/search/full?searchTerm=bier&pageSize=1000";
 
     blacklistedIds = [ 
         "00-414102", // "Da komm ich her! Bierrettich aus Österreich" Nr. 143
@@ -15,11 +15,6 @@ export default class BillaSpider extends Spider {
         "00-911108", // "Almsenner Pinzgauer Bierkäse" Nr. 145
         "00-590286", // "Oswald Steinpilze halbiert" Nr. 146
     ]
-
-    constructor(url: string) {
-        super();
-        this.url = url;
-    }
 
     async getProducts(): Promise<Product[]> {
         console.log("Running BillaSpider");

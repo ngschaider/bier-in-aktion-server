@@ -7,12 +7,7 @@ export default class SparSpider extends Spider {
 
     marketType = "unimarkt";
 
-    url: string;
-
-    constructor(url: string) {
-        super();
-        this.url = url;
-    }
+    url = "https://shop.unimarkt.at/suche/ajaxGateway.cfm?ts=1605216079196&q=bier%23&seite=suchergebnisse&display=normal&format=html";
 
     async getProducts(): Promise<Product[]> {
         console.log("Running UnimarktSpider");
