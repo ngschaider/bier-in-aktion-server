@@ -6,5 +6,4 @@ tmp/
 temp/
 
 .env
-.env.development
-.env.production
+debug.log

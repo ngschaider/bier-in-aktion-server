@@ -1,42 +1,45 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { ApolloServer } from "apollo-server";
 import dotenv from "dotenv";
-import path from "path";
 import express from "express";
-
-import typeDefs from "./graphql/typeDefs";
-import resolvers from "./graphql/resolvers";
-import scheduler from "./util/scheduler";
+import { buildSchema } from "type-graphql";
+import { ApolloServer } from "apollo-server";
 
 dotenv.config();
-if(process.env.NODE_ENV === "production") {
-    dotenv.config({ path: path.resolve(process.cwd(), ".env.production") });
-} else {
-    dotenv.config({ path: path.resolve(process.cwd(), ".env.development") })
-}
 
-const app = express();
-app.use(express.static("public"));
-
-
-const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers
-});
-
-createConnection().then(async connection => {    
+const bootstrap = async () => {
+    const connection = await createConnection();
     console.log("Connected to database");
-    return apolloServer.listen({
-        port: process.env.APOLLO_PORT,
+    
+    const schema = await buildSchema({
+        resolvers: [__dirname + "/resolvers/**/*.{ts,js}"],
     });
-}).then(res => {
-    console.log("API Server running at " + res.url);
+    const server = new ApolloServer({
+        schema,
+    });
+    const apolloServer = await server.listen(process.env.APOLLO_PORT);
+    console.log("API Server running at " + apolloServer.url);
 
+    const app = express();
+    app.use(express.static("public"));
     const listener = app.listen(process.env.EXPRESS_PORT, () => {
         console.log("Content Server running on port " + process.env.EXPRESS_PORT);
     })
-    scheduler();
-}).catch(error => {
-    console.log(error);
-});
+};
+
+bootstrap();
+
+
+
+/*
+(async () => {
+
+    const billaProvider: BillaProvider = new BillaProvider();
+    const products: Product[] = await billaProvider.crawl();
+    for(const product of products) {
+        console.log("Saving " + product.brand + " " + product.name);
+        product.save();
+    }
+
+})();
+*/

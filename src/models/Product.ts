@@ -1,42 +1,61 @@
-import {Entity, Column, OneToOne, ManyToOne} from "typeorm";
+import {Entity, Column, OneToOne, ManyToOne, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+import markets from "../markets";
+import Market from "../Market";
+import MarketType from "../MarketType";
+import productImageUrls from "../productImageUrls";
+import { ID, ObjectType, Field } from "type-graphql";
 
-import Market from "./Market";
-import Model from "./Model";
-
+@ObjectType()
 @Entity()
-export default class Product extends Model {
+class Product extends BaseEntity {
+    
+    @Field(() => ID)
+    @PrimaryGeneratedColumn()
+    id!: number;
 
+    @Field()
     @Column()
-    brand: string;
+    brand!: string;
 
+    @Field()
     @Column()
-    name: string;
+    name!: string;
 
+    @Field()
     @Column({type: "float"})
-    originalPrice: number;
+    originalPrice!: number;
 
+    @Field()
     @Column({type: "float"})
-    salePrice: number;
+    discountPrice!: number;
 
-    @Column({nullable: true})
-    foreignId: string;
-
-    @Column({type: "text", nullable: true})    
-    description: string;
-
-    @ManyToOne(() => Market)
-    market: Market;
-
+    @Field()
     @Column()
-    imageUrl: string;
+    marketType!: MarketType;
 
-    @Column({nullable: true})
-    start: Date;
+    @Field()
+    public get market(): Market {
+        return markets[this.marketType];
+    }
 
-    @Column({nullable: true})
-    end: Date;
+    @Field()
+    public get imageUrl(): string {
+        const url = productImageUrls[this.name];
+        return url ?? "https://causeofaction.org/wp-content/uploads/2013/09/Not-available.gif"
+    }
 
-    @Column({nullable: true})
-    additionalInfo: string;
+    @Field()
+    @Column()
+    startDate!: Date;
+
+    @Field()
+    @Column()
+    endDate!: Date;
+
+    @Field()
+    @Column()
+    additionalInfo!: string;
 
 }
+
+export default Product;
