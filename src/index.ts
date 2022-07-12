@@ -17,6 +17,7 @@ const bootstrap = async () => {
     const server = new ApolloServer({
         schema,
     });
+
     const apolloServer = await server.listen(process.env.APOLLO_PORT);
     console.log("API Server running at " + apolloServer.url);
 

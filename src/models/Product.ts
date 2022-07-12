@@ -56,6 +56,10 @@ class Product extends BaseEntity {
     @Column()
     additionalInfo!: string;
 
+    @Field()
+    @Column()
+    description!: string;
+
 }
 
 export default Product;
